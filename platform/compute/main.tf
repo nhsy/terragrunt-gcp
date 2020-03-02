@@ -21,11 +21,11 @@ module "bastion" {
 
 
 ###
-# Create web gce instnace
+# Create management gce instnace
 ###
-module "web" {
+module "mgmt" {
   source          = "../../modules/gcp-compute"
-  name            = local.web_instance_name
+  name            = local.mgmt_instance_name
   network         = var.vpc_self_link
   region          = var.region
   service_account = var.gce_service_account_email != null ? var.gce_service_account_email : data.google_compute_default_service_account.this.email
@@ -36,7 +36,7 @@ module "web" {
   image           = data.google_compute_image.centos7.self_link
   metadata        = local.common_metadata
   kms_key         = var.kms_key
-  tags            = ["web"]
+  tags            = ["mgmt"]
 }
 
 ###
@@ -44,7 +44,7 @@ module "web" {
 ###
 locals {
   bastion_instance_name = format("bastion-%s", var.random_id)
-  web_instance_name     = format("web-%s", var.random_id)
+  mgmt_instance_name    = format("mgmt-%s", var.random_id)
   common_metadata = {
     environment = var.environment
     project     = var.project_id

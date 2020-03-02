@@ -14,18 +14,18 @@ output "bastion_zone" {
   value = module.bastion.zone
 }
 
-output "web_name" {
-  value = module.web.name
+output "mgmt_name" {
+  value = module.mgmt.name
 }
 
-output "web_private_ip" {
-  value = module.web.private_ip
+output "mgmt_private_ip" {
+  value = module.mgmt.private_ip
 }
 
-output "web_public_ip" {
-  value = module.web.public_ip
+output "mgmt_public_ip" {
+  value = module.mgmt.public_ip
 }
 
-output "web_zone" {
-  value = module.web.zone
+output "mgmt_zone" {
+  value = module.mgmt.zone
 }

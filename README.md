@@ -13,6 +13,7 @@ Preferred software and platform are described below:
 
 ## Platform
 A native bash shell provides the best user experience.
+* GCP CloudShell
 * Linux
 * MacOS
 * Windows with Docker or WSL
@@ -22,10 +23,8 @@ Terraform requires application default authentication setup as follows:
 ```shell script
 gcloud auth application-default login
 ```
-OR
-```shell script
-export GOOGLE_APPLICATION_CREDENTIAL=service_account.json
-```
+
+If using GCP CloudShell, then authentication is already setup.
 
 ## IAM Role
 For ease of use, the project owner role is needed by the iam user or service account.
@@ -33,7 +32,7 @@ For ease of use, the project owner role is needed by the iam user or service acc
 # Resources
 The terraform code deploys the following resources:
 
-* Bastion & Web GCE instances
+* Bastion & Management GCE instances
 * GCE Service Account
 * Firewall rules to allow Identity Aware Proxy and SSH ingress
 * KMS Key
@@ -97,9 +96,9 @@ The gcloud command below creates a SSH session to the bastion compute instance o
 gcloud compute ssh $(cd compute;terraform output bastion_name) \
   --zone $(cd compute;terraform output bastion_zone)
 ```
-The gcloud command below creates a SSH session to the web compute instance over the private ip address using identity aware proxy.
+The gcloud command below creates a SSH session to the management compute instance over the private ip address using identity aware proxy.
 ```shell script
-gcloud compute ssh $(cd compute;terraform output web_name) \
-  --zone $(cd compute;terraform output web_zone) \
+gcloud compute ssh $(cd compute;terraform output mgmt_name) \
+  --zone $(cd compute;terraform output mgmt_zone) \
   --tunnel-through-iap
 ```
